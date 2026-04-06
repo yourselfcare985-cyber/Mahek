@@ -3,67 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Sister ❤️</title>
+<title>For Someone Special ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300&display=swap" rel="stylesheet">
 
 <style>
+
 body{
     margin:0;
-    background:#0b0b0b;
-    color:white;
     font-family:'Poppins',sans-serif;
+    background:black;
     overflow:hidden;
-    text-align:center;
+    color:white;
+}
+
+/* ENTRY */
+#entry{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:black;
+    z-index:10;
+}
+
+#entry button{
+    padding:15px 40px;
+    font-size:18px;
+    border:1px solid #fff;
+    background:transparent;
+    color:white;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+#entry button:hover{
+    background:white;
+    color:black;
+}
+
+/* BACKGROUND VIDEO */
+#bgVideo{
+    position:fixed;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0.2;
 }
 
 /* IMAGE */
 #imageBox{
+    position:absolute;
     width:100%;
-    height:75vh;
+    height:100%;
     display:flex;
     justify-content:center;
     align-items:center;
-    overflow:hidden;
 }
 
 #imageBox img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+    max-width:90%;
+    max-height:80%;
+    border-radius:20px;
     opacity:0;
     transform:scale(1.1);
+    filter:blur(15px);
     transition:2s ease;
 }
 
 .show{
     opacity:1 !important;
     transform:scale(1);
+    filter:blur(0px);
 }
 
 /* TEXT */
 #text{
-    padding:20px;
+    position:absolute;
+    bottom:40px;
+    width:100%;
+    text-align:center;
     font-size:18px;
-    min-height:60px;
     opacity:0.9;
 }
 
-/* FINAL TEXT */
+/* FINAL */
 #final{
     position:absolute;
     top:40%;
     width:100%;
-    font-size:40px;
+    text-align:center;
     font-family:'Playfair Display',serif;
+    font-size:42px;
     opacity:0;
-    letter-spacing:3px;
-    transition:2s;
+    letter-spacing:2px;
+    transition:3s;
 }
 
 .reveal{
     opacity:1 !important;
-    letter-spacing:8px;
+    letter-spacing:10px;
 }
 
 </style>
@@ -71,76 +112,98 @@ body{
 
 <body>
 
+<div id="entry">
+    <button onclick="start()">Tap to Begin ❤️</button>
+</div>
+
+<!-- OPTIONAL VIDEO -->
+<video id="bgVideo" autoplay muted loop>
+    <source src="bg.mp4" type="video/mp4">
+</video>
+
 <div id="imageBox">
     <img id="img" src="img1.jpg">
 </div>
 
 <div id="text"></div>
-<div id="final">Happy Birthday ❤️</div>
+
+<div id="final">
+    Happy Birthday ❤️ <br>
+    <span style="font-size:20px;">You are my forever</span>
+</div>
+
+<audio id="music" src="song.mp3"></audio>
 
 <script>
 
-let images = ["IMG-20260406-WA0015.jpg","IMG-20260406-WA0016.jpg","IMG-20260406-WA0018.jpg","IMG-20260406-WA0017.jpg"];
-
-let textLines = [
-"You’ve always been more than just a sister… you’ve been my safe place.",
-"No matter how much time passes, the memories we share never fade.",
-"You’re the one who makes ordinary days feel special.",
-"And honestly… life wouldn’t be the same without you."
+let images = [
+"IMG-20260406-WA0015.jpg",
+"IMG-20260406-WA0016.jpg",
+"IMG-20260406-WA0018.jpg",
+"IMG-20260406-WA0017.jpg"
 ];
 
-let i = 0;
-let img = document.getElementById("img");
-let text = document.getElementById("text");
+let lines = [
+"It started with small moments… that slowly became unforgettable memories.",
+"Through every phase… you were always there, without needing to say anything.",
+"You didn’t just share moments… you made them special.",
+"And honestly… some people are not replaceable. You’re one of them."
+];
 
-/* typing effect */
-function typeLine(line, callback){
+let i=0;
+let img=document.getElementById("img");
+let text=document.getElementById("text");
+
+function start(){
+    document.getElementById("entry").style.display="none";
+    document.getElementById("music").play();
+    showSlide();
+}
+
+/* typing */
+function type(line, callback){
     text.innerHTML="";
     let j=0;
-    let typing=setInterval(()=>{
+    let t=setInterval(()=>{
         text.innerHTML += line[j];
         j++;
         if(j>=line.length){
-            clearInterval(typing);
+            clearInterval(t);
             setTimeout(callback,1500);
         }
-    },40);
+    },35);
 }
 
-/* show images */
-function showNext(){
-    if(i < images.length){
+/* slides */
+function showSlide(){
+
+    if(i<images.length){
+
         img.classList.remove("show");
 
         setTimeout(()=>{
-            img.src = images[i];
+            img.src=images[i];
             img.classList.add("show");
-            typeLine(textLines[i], ()=>{
+
+            type(lines[i], ()=>{
                 i++;
-                showNext();
+                showSlide();
             });
-        },500);
-    } else {
-        showFinal();
+
+        },800);
+
+    }else{
+        ending();
     }
 }
 
-/* final animation */
-function showFinal(){
+/* ending */
+function ending(){
     text.innerHTML="";
     setTimeout(()=>{
         document.getElementById("final").classList.add("reveal");
     },1000);
 }
-
-/* start */
-setTimeout(()=>{
-    img.classList.add("show");
-    typeLine(textLines[0], ()=>{
-        i=1;
-        showNext();
-    });
-},1000);
 
 </script>
 
