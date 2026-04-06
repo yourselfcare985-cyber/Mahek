@@ -86,6 +86,8 @@ section{
     height:100%;
     object-fit:cover;
     filter:brightness(0.5);
+    position:absolute;
+    z-index:1; /* ADD THIS */
 }
 
 /* FIXED TEXT AREA */
@@ -97,6 +99,7 @@ section{
     width:90%;
     text-align:center;
     color:white;
+    z-index:999; /* HIGH priority */
 }
 
 /* FIXED HEADING */
@@ -256,17 +259,21 @@ function showFinal(){
 
     let title = document.getElementById("finalText");
 
-    title.style.opacity = "0";
+    // HARD RESET
     title.classList.remove("showFinalText");
+    title.style.opacity = "0";
 
+    // FORCE REPAINT
     setTimeout(()=>{
+
+        title.style.opacity = "1";   // force visible
         title.classList.add("showFinalText");
 
         setTimeout(()=>{
             typePara(finalPara);
-        },1000);
+        },800);
 
-    },200);
+    },500);
 }
 
 /* PARA */
