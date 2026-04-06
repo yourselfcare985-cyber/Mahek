@@ -42,17 +42,10 @@ body{
     color:white;
     backdrop-filter:blur(10px);
     cursor:pointer;
-    transition:0.3s;
-}
-#enterBtn:hover{
-    background:white;
-    color:black;
 }
 
 /* MAIN */
-#main{
-    display:none;
-}
+#main{ display:none; }
 
 #img{
     position:absolute;
@@ -60,25 +53,39 @@ body{
     height:100%;
     object-fit:cover;
     opacity:0;
-    transition:1.5s;
+    transform:scale(1.1);
+    transition:1.5s ease;
+}
+
+.show{
+    opacity:1;
+    transform:scale(1);
 }
 
 #text{
     position:absolute;
-    bottom:60px;
+    bottom:70px;
     width:100%;
     text-align:center;
-    font-size:20px;
+    font-size:22px;
     padding:0 20px;
+    text-shadow:0 0 10px rgba(0,0,0,0.7);
 }
 
-/* FINAL SCREEN */
+/* FINAL */
 #final{
     display:none;
     position:absolute;
     width:100%;
     height:100%;
-    background:black;
+}
+
+#final img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(0.5);
 }
 
 #finalText{
@@ -86,11 +93,11 @@ body{
     top:30%;
     width:100%;
     text-align:center;
-    font-size:45px;
+    font-size:50px;
     font-family:'Playfair Display',serif;
     opacity:0;
-    transform:translateY(40px);
-    transition:1.5s;
+    transform:translateY(60px);
+    transition:2s;
 }
 
 #para{
@@ -102,12 +109,8 @@ body{
     font-size:18px;
 }
 
-/* animation */
-.show{
-    opacity:1 !important;
-}
 .reveal{
-    opacity:1 !important;
+    opacity:1;
     transform:translateY(0);
 }
 </style>
@@ -118,7 +121,7 @@ body{
 <!-- INTRO -->
 <div id="intro">
     <video id="bgVideo" autoplay muted loop>
-        <source src="From KlickPin CF Sunset ❤️ _ Beautiful sunsets with flowers - Pin-924434261032503082.mp4" type="video/mp4">
+        <source src="" type="video/mp4">
     </video>
     <button id="enterBtn">Enter ❤️</button>
 </div>
@@ -131,6 +134,7 @@ body{
 
 <!-- FINAL -->
 <div id="final">
+    <img src="final.jpg">
     <div id="finalText">Happy Birthday ❤️</div>
     <div id="para"></div>
 </div>
@@ -139,66 +143,70 @@ body{
 
 <script>
 
-let images=["IMG-20260406-WA0018.jpg","IMG-20260406-WA0016.jpg","IMG-20260406-WA0015.jpg"];
+let images=["img1.jpg","img2.jpg","img3.jpg"];
 
 let lines=[
 "You’ve always been my safe place…",
-"Those memories… they still feel alive.",
-"And honestly… life feels better with you."
+"Those memories still feel alive…",
+"Life feels better with you."
 ];
 
-let finalPara="You are not just my sister, you are my comfort, my happiness, and my best memory in every phase of life. I’m lucky to have you. Stay the same beautiful soul forever ❤️";
+let finalPara="You are not just my sister, you are my comfort, my happiness, and my best memory in every phase of life. I’m lucky to have you ❤️";
 
 let i=0;
 let img=document.getElementById("img");
 let text=document.getElementById("text");
+let music=document.getElementById("music");
 
 /* ENTER */
 document.getElementById("enterBtn").onclick=()=>{
     document.getElementById("intro").style.display="none";
     document.getElementById("main").style.display="block";
-    document.getElementById("music").play();
-    show();
+    music.play().catch(()=>{});
+    showSlide();
 };
 
-/* typing */
-function type(element,line,cb){
-    element.innerHTML="";
+/* TYPING with sync */
+function typeText(line,callback){
+    text.innerHTML="";
     let j=0;
-    let t=setInterval(()=>{
-        element.innerHTML+=line[j];
+
+    let interval=setInterval(()=>{
+        text.innerHTML+=line[j];
         j++;
+
         if(j>=line.length){
-            clearInterval(t);
-            setTimeout(cb,1500);
+            clearInterval(interval);
+            setTimeout(callback,1500);
         }
-    },40);
+
+    },35);
 }
 
-/* slides */
-function show(){
-    if(i<images.length){
+/* SLIDE CONTROL (PERFECT TIMING) */
+function showSlide(){
 
-        img.classList.remove("show");
-
-        setTimeout(()=>{
-            img.src=images[i];
-            img.classList.add("show");
-
-            type(text,lines[i],()=>{
-                i++;
-                show();
-            });
-
-        },600);
-
-    }else{
-        end();
+    if(i>=images.length){
+        showFinal();
+        return;
     }
+
+    img.classList.remove("show");
+
+    setTimeout(()=>{
+        img.src=images[i];
+        img.classList.add("show");
+
+        typeText(lines[i],()=>{
+            i++;
+            showSlide();
+        });
+
+    },700);
 }
 
-/* END */
-function end(){
+/* FINAL */
+function showFinal(){
     document.getElementById("main").style.display="none";
     document.getElementById("final").style.display="block";
 
@@ -206,10 +214,27 @@ function end(){
         document.getElementById("finalText").classList.add("reveal");
 
         setTimeout(()=>{
-            type(document.getElementById("para"),finalPara,()=>{});
+            typePara(finalPara);
         },1200);
 
     },500);
+}
+
+/* FINAL PARA TYPING */
+function typePara(textLine){
+    let el=document.getElementById("para");
+    el.innerHTML="";
+    let k=0;
+
+    let t=setInterval(()=>{
+        el.innerHTML+=textLine[k];
+        k++;
+
+        if(k>=textLine.length){
+            clearInterval(t);
+        }
+
+    },35);
 }
 
 </script>
