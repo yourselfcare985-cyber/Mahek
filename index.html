@@ -204,7 +204,9 @@ function showSlide(){
 
     },700);
 }
-
+setTimeout(()=>{
+    music.play().catch(()=>{});
+},40000);
 /* FINAL */
 function showFinal(){
     document.getElementById("main").style.display="none";
