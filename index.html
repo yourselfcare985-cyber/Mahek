@@ -76,13 +76,16 @@ section{
 }
 
 /* FINAL */
+/* FINAL */
 #final{
     display:none;
     position:relative;
     width:100%;
     height:100%;
+    overflow:auto; /* 🔥 IMPORTANT */
 }
 
+/* BG IMAGE */
 #final img{
     position:absolute;
     width:100%;
@@ -92,23 +95,26 @@ section{
     z-index:1;
 }
 
+/* CONTENT */
 #finalContent{
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-    color:white;
+    position:relative;
     z-index:2;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+
+    padding:40px 20px;
+    min-height:100%;
+    text-align:center;
+    color:white;
 }
 
-/* TOP TEXT */
+/* HAPPY BIRTHDAY */
 #finalText{
-    position:absolute;
-    top:10%;
-    width:100%;
-    text-align:center;
-    font-size:38px;
+    font-size:36px;
+    margin-bottom:20px;
     font-family:'Playfair Display',serif;
 
     opacity:0;
@@ -121,19 +127,11 @@ section{
     transform:translateY(0);
 }
 
-/* CENTER PARA */
+/* PARAGRAPH */
 #para{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    
-    width:85%;
-    max-width:500px;
-
-    text-align:center;
     font-size:18px;
     line-height:1.6;
+    max-width:500px;
 }
 </style>
 </head>
