@@ -79,60 +79,58 @@ section{
 /* FINAL */
 #final{
     display:none;
+    position:relative;
+    width:100%;
+    height:100%;
 }
 
+/* BACKGROUND IMAGE */
 #final img{
+    position:absolute;
     width:100%;
     height:100%;
     object-fit:cover;
     filter:brightness(0.5);
-    position:absolute;
-    z-index:1; /* ADD THIS */
+    z-index:1;
 }
 
-/* FIXED TEXT AREA */
+/* CONTENT */
 #finalContent{
     position:absolute;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    width:90%;
+    
+    width:85%;
+    max-width:500px;
+    
     text-align:center;
     color:white;
-    z-index:999; /* HIGH priority */
+
+    z-index:2; /* ONLY ONE layer */
 }
 
-/* FIXED HEADING */
-
-/* FIXED PARA */
-#para{
-    font-size:18px;
-    line-height:1.5;
-}
-    #finalText{
-    font-size:40px;
-    margin-bottom:20px;
+/* HEADING */
+#finalText{
+    font-size:38px;
+    margin-bottom:15px;
     font-family:'Playfair Display',serif;
-    
+
     opacity:0;
-    transform:translateY(50px) scale(0.9);
-    transition:1.5s ease;
-     z-index:5;   
+    transform:translateY(40px);
+    transition:1s ease;
 }
 
 .showFinalText{
     opacity:1;
-    transform:translateY(0) scale(1);
+    transform:translateY(0);
 }
-#finalContent{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:90%;
-    text-align:center;
-    color:white;
-    z-index:10; /* IMPORTANT */
+
+/* PARAGRAPH */
+#para{
+    font-size:18px;
+    line-height:1.6;
+    word-wrap:break-word;
 }
 </style>
 </head>
