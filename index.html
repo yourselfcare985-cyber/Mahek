@@ -3,163 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>For My Sister ❤️</title>
+<title>For You ❤️</title>
 
 <style>
-:root{
-    --dark:#121212;
-    --accent:#b76e79;
-    --light:#f5e6e0;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
-
-html{scroll-behavior:smooth;}
-
 body{
-    background:var(--dark);
+    margin:0;
+    background:black;
     color:white;
+    font-family:sans-serif;
+    overflow:hidden;
 }
 
-/* DEPTH */
-body::before{
-    content:'';
-    position:fixed;
+/* MAIN IMAGE */
+#img{
+    position:absolute;
     width:100%;
     height:100%;
-    background:radial-gradient(circle,transparent,black 80%);
-    z-index:-1;
-}
-
-/* HERO */
-.hero{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-}
-
-.hero h1{
-    font-size:3rem;
-    color:var(--accent);
-    border-right:2px solid var(--accent);
-    white-space:nowrap;
-    overflow:hidden;
-}
-
-#subText{
-    margin-top:20px;
-    opacity:0;
-    transition:1.5s;
-    color:#ccc;
-}
-
-/* SECTION */
-.section{
-    padding:80px 20px;
-    max-width:1100px;
-    margin:auto;
-}
-
-.title{
-    text-align:center;
-    color:var(--accent);
-    font-size:2rem;
-    margin-bottom:40px;
-}
-
-/* GALLERY */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.card{
-    position:relative;
-    overflow:hidden;
-    border-radius:10px;
-}
-
-.card img{
-    width:100%;
-    height:350px;
     object-fit:cover;
-    filter:grayscale(50%);
-    transition:0.6s;
+    filter:blur(15px) brightness(0.5);
+    transform:scale(1.2);
+    transition:2s;
 }
 
-.card:hover img{
-    transform:scale(1.1);
-    filter:grayscale(0%);
+.show{
+    filter:blur(0px) brightness(1);
+    transform:scale(1);
 }
 
-.overlay{
+/* TEXT */
+#text{
     position:absolute;
-    bottom:-60px;
+    bottom:80px;
     width:100%;
-    padding:15px;
-    background:linear-gradient(transparent,black);
-    transition:0.4s;
+    text-align:center;
+    font-size:20px;
+    padding:0 20px;
 }
 
-.card:hover .overlay{
-    bottom:0;
-}
-
-/* POLAROID */
-.polaroid-wrap{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:40px;
-}
-
-.polaroid{
-    background:white;
-    color:black;
-    padding:10px 10px 30px;
-    width:260px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    transform:rotate(-3deg);
-    transition:0.4s;
-}
-
-.polaroid:nth-child(even){transform:rotate(3deg);}
-
-.polaroid:hover{
-    transform:scale(1.1) rotate(0deg);
-}
-
-.polaroid img{
+/* BLACK FADE */
+#fade{
+    position:absolute;
     width:100%;
-    height:220px;
-    object-fit:cover;
-}
-
-.caption{
-    text-align:center;
-    margin-top:10px;
-}
-
-/* FINAL */
-.final{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-}
-
-#finalText{
-    font-size:3rem;
+    height:100%;
+    background:black;
     opacity:0;
     transition:2s;
-    color:var(--accent);
+    z-index:5;
+}
+
+/* FINAL SCREEN */
+#finalScreen{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:none;
+}
+
+#finalImg{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(0.6);
+}
+
+/* FINAL TEXT */
+#finalText{
+    position:absolute;
+    top:40%;
+    width:100%;
+    text-align:center;
+    font-size:45px;
+    opacity:0;
+    transition:3s;
+}
+
+.reveal{
+    opacity:1;
+    letter-spacing:8px;
 }
 
 </style>
@@ -167,87 +87,96 @@ body::before{
 
 <body>
 
-<!-- HERO -->
-<section class="hero">
-    <h1 id="type"></h1>
-    <p id="subText">Not just a sister… my forever person ❤️</p>
-</section>
+<img id="img" src="">
+<div id="text"></div>
+<div id="fade"></div>
 
-<!-- GALLERY -->
-<section class="section">
-    <h2 class="title">Our Moments</h2>
-    <div class="grid">
-        <div class="card">
-            <img src="IMG-20260406-WA0015.jpg">
-            <div class="overlay">That day we couldn’t stop laughing</div>
-        </div>
-        <div class="card">
-            <img src="IMG-20260406-WA0016.jpg">
-            <div class="overlay">Random moments turned memories</div>
-        </div>
-        <div class="card">
-            <img src="IMG-20260406-WA0018.jpg">
-            <div class="overlay">No reason… just happiness</div>
-        </div>
+<!-- FINAL SCREEN -->
+<div id="finalScreen">
+    <img id="finalImg" src="final.jpg">
+    <div id="finalText">
+        Happy Birthday ❤️ <br>
+        <span style="font-size:18px;">You are truly special</span>
     </div>
-</section>
+</div>
 
-<!-- MEMORY WALL -->
-<section class="section">
-    <h2 class="title">Memories That Stayed</h2>
-    <div class="polaroid-wrap">
-        <div class="polaroid">
-            <img src="img4.jpg">
-            <div class="caption">Childhood chaos 😂</div>
-        </div>
-        <div class="polaroid">
-            <img src="img5.jpg">
-            <div class="caption">Best moment❤️</div>
-        </div>
-        <div class="polaroid">
-            <img src="IMG-20260406-WA0017.jpg">
-            <div class="caption">Unforgettable trips</div>
-        </div>
-    </div>
-</section>
-
-<!-- FINAL -->
-<section class="final">
-    <h1 id="finalText">Happy Birthday ❤️</h1>
-    <p style="margin-top:20px;">Some bonds are forever… and ours is one of them.</p>
-</section>
+<audio id="music" src="song.mp3"></audio>
 
 <script>
 
-/* TYPEWRITER */
-let text="Some people just exist… but you made every moment special.";
-let i=0;
+let images=[
+"IMG-20260406-WA0018.jpg",
+"IMG-20260406-WA0016.jpg",
+"IMG-20260406-WA0015.jpg"
+];
 
-function type(){
-    if(i<text.length){
-        document.getElementById("type").innerHTML+=text[i];
-        i++;
-        setTimeout(type,50);
-    }else{
-        document.getElementById("type").style.borderRight="none";
+let lines=[
+"Some memories just stay… no matter how much time passes.",
+"We didn’t realize it then… but those moments meant everything.",
+"And honestly… life feels better with you in it."
+];
+
+let i=0;
+let img=document.getElementById("img");
+let text=document.getElementById("text");
+
+/* typing */
+function type(line,cb){
+    text.innerHTML="";
+    let j=0;
+    let t=setInterval(()=>{
+        text.innerHTML+=line[j];
+        j++;
+        if(j>=line.length){
+            clearInterval(t);
+            setTimeout(cb,2000);
+        }
+    },40);
+}
+
+/* slides */
+function next(){
+
+    if(i<images.length){
+
+        img.classList.remove("show");
+
         setTimeout(()=>{
-            document.getElementById("subText").style.opacity=1;
-        },500);
+            img.src=images[i];
+            img.classList.add("show");
+
+            type(lines[i],()=>{
+                i++;
+                next();
+            });
+
+        },800);
+
+    }else{
+        ending();
     }
 }
 
-type();
+/* ending transition */
+function ending(){
+    document.getElementById("fade").style.opacity=1;
 
-/* FINAL REVEAL */
-window.addEventListener("scroll",()=>{
-    let final=document.getElementById("finalText");
-    let pos=final.getBoundingClientRect().top;
-    let screen=window.innerHeight;
+    setTimeout(()=>{
+        document.getElementById("finalScreen").style.display="block";
+        document.getElementById("fade").style.opacity=0;
 
-    if(pos<screen-100){
-        final.style.opacity=1;
-    }
-});
+        setTimeout(()=>{
+            document.getElementById("finalText").classList.add("reveal");
+        },1000);
+
+    },2000);
+}
+
+/* start */
+setTimeout(()=>{
+    document.getElementById("music").play();
+    next();
+},1000);
 
 </script>
 
