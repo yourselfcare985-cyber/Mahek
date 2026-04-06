@@ -5,138 +5,178 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You ❤️</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Playfair+Display&display=swap" rel="stylesheet">
+
 <style>
 body{
     margin:0;
+    overflow:hidden;
     background:black;
     color:white;
-    font-family:sans-serif;
-    overflow:hidden;
+    font-family:'Poppins',sans-serif;
 }
 
-/* MAIN IMAGE */
+/* INTRO */
+#intro{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+#bgVideo{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+#enterBtn{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:15px 40px;
+    border:none;
+    border-radius:30px;
+    font-size:18px;
+    background:rgba(255,255,255,0.2);
+    color:white;
+    backdrop-filter:blur(10px);
+    cursor:pointer;
+    transition:0.3s;
+}
+#enterBtn:hover{
+    background:white;
+    color:black;
+}
+
+/* MAIN */
+#main{
+    display:none;
+}
+
 #img{
     position:absolute;
     width:100%;
     height:100%;
     object-fit:cover;
-    filter:blur(15px) brightness(0.5);
-    transform:scale(1.2);
-    transition:2s;
+    opacity:0;
+    transition:1.5s;
 }
 
-.show{
-    filter:blur(0px) brightness(1);
-    transform:scale(1);
-}
-
-/* TEXT */
 #text{
     position:absolute;
-    bottom:80px;
+    bottom:60px;
     width:100%;
     text-align:center;
     font-size:20px;
     padding:0 20px;
 }
 
-/* BLACK FADE */
-#fade{
+/* FINAL SCREEN */
+#final{
+    display:none;
     position:absolute;
     width:100%;
     height:100%;
     background:black;
-    opacity:0;
-    transition:2s;
-    z-index:5;
 }
 
-/* FINAL SCREEN */
-#finalScreen{
-    position:absolute;
-    width:100%;
-    height:100%;
-    display:none;
-}
-
-#finalImg{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    filter:brightness(0.6);
-}
-
-/* FINAL TEXT */
 #finalText{
     position:absolute;
-    top:40%;
+    top:30%;
     width:100%;
     text-align:center;
     font-size:45px;
+    font-family:'Playfair Display',serif;
     opacity:0;
-    transition:3s;
+    transform:translateY(40px);
+    transition:1.5s;
 }
 
+#para{
+    position:absolute;
+    top:55%;
+    width:100%;
+    text-align:center;
+    padding:0 30px;
+    font-size:18px;
+}
+
+/* animation */
+.show{
+    opacity:1 !important;
+}
 .reveal{
-    opacity:1;
-    letter-spacing:8px;
+    opacity:1 !important;
+    transform:translateY(0);
 }
-
 </style>
 </head>
 
 <body>
 
-<img id="img" src="">
-<div id="text"></div>
-<div id="fade"></div>
+<!-- INTRO -->
+<div id="intro">
+    <video id="bgVideo" autoplay muted loop>
+        <source src="intro.mp4" type="video/mp4">
+    </video>
+    <button id="enterBtn">Enter ❤️</button>
+</div>
 
-<!-- FINAL SCREEN -->
-<div id="finalScreen">
-    <img id="finalImg" src="final.jpg">
-    <div id="finalText">
-        Happy Birthday ❤️ <br>
-        <span style="font-size:18px;">You are truly special</span>
-    </div>
+<!-- MAIN -->
+<div id="main">
+    <img id="img">
+    <div id="text"></div>
+</div>
+
+<!-- FINAL -->
+<div id="final">
+    <div id="finalText">Happy Birthday ❤️</div>
+    <div id="para"></div>
 </div>
 
 <audio id="music" src="song.mp3"></audio>
 
 <script>
 
-let images=[
-"IMG-20260406-WA0018.jpg",
-"IMG-20260406-WA0016.jpg",
-"IMG-20260406-WA0015.jpg"
-];
+let images=["IMG-20260406-WA0018.jpg","IMG-20260406-WA0016.jpg","IMG-20260406-WA0015.jpg"];
 
 let lines=[
-"Some memories just stay… no matter how much time passes.",
-"We didn’t realize it then… but those moments meant everything.",
-"And honestly… life feels better with you in it."
+"You’ve always been my safe place…",
+"Those memories… they still feel alive.",
+"And honestly… life feels better with you."
 ];
+
+let finalPara="You are not just my sister, you are my comfort, my happiness, and my best memory in every phase of life. I’m lucky to have you. Stay the same beautiful soul forever ❤️";
 
 let i=0;
 let img=document.getElementById("img");
 let text=document.getElementById("text");
 
+/* ENTER */
+document.getElementById("enterBtn").onclick=()=>{
+    document.getElementById("intro").style.display="none";
+    document.getElementById("main").style.display="block";
+    document.getElementById("music").play();
+    show();
+};
+
 /* typing */
-function type(line,cb){
-    text.innerHTML="";
+function type(element,line,cb){
+    element.innerHTML="";
     let j=0;
     let t=setInterval(()=>{
-        text.innerHTML+=line[j];
+        element.innerHTML+=line[j];
         j++;
         if(j>=line.length){
             clearInterval(t);
-            setTimeout(cb,2000);
+            setTimeout(cb,1500);
         }
     },40);
 }
 
 /* slides */
-function next(){
-
+function show(){
     if(i<images.length){
 
         img.classList.remove("show");
@@ -145,40 +185,22 @@ function next(){
             img.src=images[i];
             img.classList.add("show");
 
-            type(lines[i],()=>{
+            type(text,lines[i],()=>{
                 i++;
-                next();
+                show();
             });
 
-        },800);
+        },600);
 
     }else{
-        ending();
+        end();
     }
 }
 
-/* ending transition */
-function ending(){
-    document.getElementById("fade").style.opacity=1;
+/* END */
+function end(){
+    document.getElementById("main").style.display="none";
+    document.getElementById("final").style.display="block";
 
     setTimeout(()=>{
-        document.getElementById("finalScreen").style.display="block";
-        document.getElementById("fade").style.opacity=0;
-
-        setTimeout(()=>{
-            document.getElementById("finalText").classList.add("reveal");
-        },1000);
-
-    },2000);
-}
-
-/* start */
-setTimeout(()=>{
-    document.getElementById("music").play();
-    next();
-},1000);
-
-</script>
-
-</body>
-</html>
+        document.getElementById("finalText").classList
