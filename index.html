@@ -1,211 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Someone Special ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Sister - Happy Birthday</title>
+    <style>
+        /* --- Global Variables & Resets --- */
+        :root {
+            --dark-bg: #121212;
+            --rose-gold: #b76e79;
+            --light-rose: #e0bfb8;
+            --warm-bg: #f4eade;
+            --text-light: #f8f8f8;
+            --text-dark: #333333;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300&display=swap" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<style>
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
 
-body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background:black;
-    overflow:hidden;
-    color:white;
-}
+        /* --- Animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
 
-/* ENTRY */
-#entry{
-    position:fixed;
-    width:100%;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:black;
-    z-index:10;
-}
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-#entry button{
-    padding:15px 40px;
-    font-size:18px;
-    border:1px solid #fff;
-    background:transparent;
-    color:white;
-    cursor:pointer;
-    transition:0.4s;
-}
+        /* --- Hero Section (Typing Effect) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 1)), url('https://placehold.co/1920x1080/2a2a2a/b76e79?text=Dark+Floral+Background') center/cover;
+        }
 
-#entry button:hover{
-    background:white;
-    color:black;
-}
+        .hero h1 {
+            font-size: 4rem;
+            color: var(--rose-gold);
+            font-family: 'Georgia', serif;
+            margin-bottom: 1rem;
+            border-right: 3px solid var(--rose-gold);
+            white-space: nowrap;
+            overflow: hidden;
+        }
 
-/* BACKGROUND VIDEO */
-#bgVideo{
-    position:fixed;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    opacity:0.2;
-}
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--light-rose);
+            letter-spacing: 2px;
+        }
 
-/* IMAGE */
-#imageBox{
-    position:absolute;
-    width:100%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+        /* --- Digital Gallery Section (Sleek & Modern) --- */
+        .digital-gallery {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-#imageBox img{
-    max-width:90%;
-    max-height:80%;
-    border-radius:20px;
-    opacity:0;
-    transform:scale(1.1);
-    filter:blur(15px);
-    transition:2s ease;
-}
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--rose-gold);
+            margin-bottom: 3rem;
+            font-family: 'Georgia', serif;
+        }
 
-.show{
-    opacity:1 !important;
-    transform:scale(1);
-    filter:blur(0px);
-}
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
 
-/* TEXT */
-#text{
-    position:absolute;
-    bottom:40px;
-    width:100%;
-    text-align:center;
-    font-size:18px;
-    opacity:0.9;
-}
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
 
-/* FINAL */
-#final{
-    position:absolute;
-    top:40%;
-    width:100%;
-    text-align:center;
-    font-family:'Playfair Display',serif;
-    font-size:42px;
-    opacity:0;
-    letter-spacing:2px;
-    transition:3s;
-}
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.6s ease;
+            filter: grayscale(40%);
+        }
 
-.reveal{
-    opacity:1 !important;
-    letter-spacing:10px;
-}
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
 
-</style>
+        .gallery-overlay {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            transition: bottom 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+        }
+
+        .gallery-overlay h3 {
+            color: var(--rose-gold);
+            font-size: 1.2rem;
+        }
+
+        /* --- Memory Wall Section (Warm & Nostalgic) --- */
+        .memory-wall {
+            background-color: var(--warm-bg);
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            padding: 6rem 2rem;
+            color: var(--text-dark);
+        }
+
+        .memory-wall .section-title {
+            color: #8b4513;
+        }
+
+        .polaroid-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .polaroid {
+            background: #fff;
+            padding: 1rem 1rem 3rem 1rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            width: 280px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+
+        /* Random Rotations for Polaroids */
+        .polaroid:nth-child(even) { transform: rotate(4deg); }
+        .polaroid:nth-child(odd) { transform: rotate(-3deg); }
+        .polaroid:nth-child(3n) { transform: rotate(2deg); }
+
+        .polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .polaroid-caption {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Brush Script MT', cursive, sans-serif;
+            font-size: 1.4rem;
+            color: #333;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.1) rotate(0deg) translateY(-10px);
+            z-index: 10;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #0a0a0a;
+            color: var(--rose-gold);
+            font-size: 1rem;
+        }
+
+    </style>
 </head>
-
 <body>
 
-<div id="entry">
-    <button onclick="start()">Tap to Begin ❤️</button>
-</div>
+    <header class="hero">
+        <h1 id="typewriter"></h1>
+        <p class="fade-in">A journey of a thousand smiles, just for you.</p>
+    </header>
 
-<!-- OPTIONAL VIDEO -->
-<video id="bgVideo" autoplay muted loop>
-    <source src="bg.mp4" type="video/mp4">
-</video>
+    <section class="digital-gallery">
+        <h2 class="section-title fade-in">Elegance & Grace</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in">
+                <img src="https://placehold.co/600x800/1e1e1e/b76e79?text=Sister+Pic+1" alt="Gallery 1">
+                <div class="gallery-overlay">
+                    <h3>Always Shining</h3>
+                </div>
+            </div>
+            <div class="gallery-item fade-in" style="transition-delay: 0.2s;">
+                <img src="https://placehold.co/600x800/1e1e1e/b76e79?text=Sister+Pic+2" alt="Gallery 2">
+                <div class="gallery-overlay">
+                    <h3>Fierce & Fabulous</h3>
+                </div>
+            </div>
+            <div class="gallery-item fade-in" style="transition-delay: 0.4s;">
+                <img src="https://placehold.co/600x800/1e1e1e/b76e79?text=Sister+Pic+3" alt="Gallery 3">
+                <div class="gallery-overlay">
+                    <h3>Unstoppable</h3>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div id="imageBox">
-    <img id="img" src="img1.jpg">
-</div>
+    <section class="memory-wall">
+        <h2 class="section-title fade-in">Our Memory Wall</h2>
+        <div class="polaroid-container">
+            <div class="polaroid fade-in">
+                <img src="https://placehold.co/400x400/e0bfb8/333333?text=Childhood" alt="Childhood Memory">
+                <div class="polaroid-caption">Bachpan ki yaadein</div>
+            </div>
+            <div class="polaroid fade-in" style="transition-delay: 0.2s;">
+                <img src="https://placehold.co/400x400/e0bfb8/333333?text=Rakhi" alt="Rakhi Festival">
+                <div class="polaroid-caption">Best Rakhi ever ❤️</div>
+            </div>
+            <div class="polaroid fade-in" style="transition-delay: 0.4s;">
+                <img src="https://placehold.co/400x400/e0bfb8/333333?text=Trip" alt="Family Trip">
+                <div class="polaroid-caption">Crazy family trips!</div>
+            </div>
+        </div>
+    </section>
 
-<div id="text"></div>
+    <footer>
+        <p>Made with endless love by your brother. Happy Birthday!</p>
+    </footer>
 
-<div id="final">
-    Happy Birthday ❤️ <br>
-    <span style="font-size:20px;">You are my forever</span>
-</div>
+    <script>
+        // 1. Typewriter Effect for Hero Heading
+        const text = "Happy Birthday, Priya! 🎉";
+        let i = 0;
+        const speed = 100; // Typing speed in milliseconds
 
-<audio id="music" src="song.mp3"></audio>
-
-<script>
-
-let images = [
-"IMG-20260406-WA0015.jpg",
-"IMG-20260406-WA0016.jpg",
-"IMG-20260406-WA0018.jpg",
-"IMG-20260406-WA0017.jpg"
-];
-
-let lines = [
-"It started with small moments… that slowly became unforgettable memories.",
-"Through every phase… you were always there, without needing to say anything.",
-"You didn’t just share moments… you made them special.",
-"And honestly… some people are not replaceable. You’re one of them."
-];
-
-let i=0;
-let img=document.getElementById("img");
-let text=document.getElementById("text");
-
-function start(){
-    document.getElementById("entry").style.display="none";
-    document.getElementById("music").play();
-    showSlide();
-}
-
-/* typing */
-function type(line, callback){
-    text.innerHTML="";
-    let j=0;
-    let t=setInterval(()=>{
-        text.innerHTML += line[j];
-        j++;
-        if(j>=line.length){
-            clearInterval(t);
-            setTimeout(callback,1500);
-        }
-    },35);
-}
-
-/* slides */
-function showSlide(){
-
-    if(i<images.length){
-
-        img.classList.remove("show");
-
-        setTimeout(()=>{
-            img.src=images[i];
-            img.classList.add("show");
-
-            type(lines[i], ()=>{
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(i);
                 i++;
-                showSlide();
+                setTimeout(typeWriter, speed);
+            } else {
+                // Remove the cursor border after typing finishes
+                document.getElementById("typewriter").style.borderRight = "none";
+            }
+        }
+        
+        // Start typing effect on load
+        window.onload = typeWriter;
+
+        // 2. Scroll Reveal Animations using Intersection Observer
+        const observerOptions = {
+            threshold: 0.1, // Trigger when 10% of element is visible
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing once visible
+                }
             });
+        }, observerOptions);
 
-        },800);
-
-    }else{
-        ending();
-    }
-}
-
-/* ending */
-function ending(){
-    text.innerHTML="";
-    setTimeout(()=>{
-        document.getElementById("final").classList.add("reveal");
-    },1000);
-}
-
-</script>
-
+        // Select all elements with class 'fade-in' and observe them
+        const faders = document.querySelectorAll('.fade-in');
+        faders.forEach(fader => {
+            observer.observe(fader);
+        });
+    </script>
 </body>
 </html>
