@@ -10,20 +10,22 @@
 <style>
 body{
     margin:0;
-    overflow:hidden;
     background:black;
-    color:white;
+    overflow:hidden;
     font-family:'Poppins',sans-serif;
 }
 
-/* INTRO */
-#intro{
+/* COMMON LAYER FIX */
+section{
     position:absolute;
     width:100%;
     height:100%;
+    top:0;
+    left:0;
 }
 
-#bgVideo{
+/* INTRO */
+#intro video{
     width:100%;
     height:100%;
     object-fit:cover;
@@ -37,115 +39,101 @@ body{
     padding:15px 40px;
     border:none;
     border-radius:30px;
-    font-size:18px;
     background:rgba(255,255,255,0.2);
     color:white;
-    backdrop-filter:blur(10px);
+    font-size:18px;
     cursor:pointer;
 }
 
 /* MAIN */
 #main{ display:none; }
 
-/* IMAGE */
 #img{
-    position:absolute;
     width:100%;
     height:100%;
     object-fit:cover;
     opacity:0;
-    transform:scale(1.1);
-    transition:1.5s ease;
+    transition:1s;
 }
 
-.show{
-    opacity:1;
-    transform:scale(1);
-}
-
-/* TEXT CENTER FIX */
+/* TEXT CENTER */
 #text{
     position:absolute;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    width:80%;
+    width:85%;
     text-align:center;
+    color:white;
     font-size:22px;
-    line-height:1.6;
-    text-shadow:0 0 15px rgba(0,0,0,0.8);
+    text-shadow:0 0 10px black;
+    z-index:2;
 }
 
 /* FINAL */
 #final{
     display:none;
-    position:absolute;
-    width:100%;
-    height:100%;
 }
 
-/* FINAL BG IMAGE */
 #final img{
-    position:absolute;
     width:100%;
     height:100%;
     object-fit:cover;
     filter:brightness(0.5);
 }
 
-/* FINAL TEXT */
+/* FIXED TEXT AREA */
+#finalContent{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    text-align:center;
+    color:white;
+}
+
+/* FIXED HEADING */
 #finalText{
-    position:absolute;
-    top:30%;
-    width:100%;
-    text-align:center;
-    font-size:50px;
+    font-size:40px;
+    margin-bottom:20px;
     font-family:'Playfair Display',serif;
-    opacity:0;
-    transform:translateY(60px);
-    transition:2s;
 }
 
-/* FINAL PARA */
+/* FIXED PARA */
 #para{
-    position:absolute;
-    top:55%;
-    width:100%;
-    text-align:center;
-    padding:0 30px;
     font-size:18px;
-    line-height:1.6;
+    line-height:1.5;
 }
 
-.reveal{
-    opacity:1;
-    transform:translateY(0);
-}
 </style>
 </head>
 
 <body>
 
 <!-- INTRO -->
-<div id="intro">
-    <video id="bgVideo" autoplay muted loop>
+<section id="intro">
+    <video autoplay muted loop playsinline>
         <source src="From KlickPin CF Sunset ❤️ _ Beautiful sunsets with flowers - Pin-924434261032503082.mp4" type="video/mp4">
     </video>
     <button id="enterBtn">Enter ❤️</button>
-</div>
+</section>
 
 <!-- MAIN -->
-<div id="main">
+<section id="main">
     <img id="img">
     <div id="text"></div>
-</div>
+</section>
 
 <!-- FINAL -->
-<div id="final">
-    <img src="IMG-20260406-WA0017.jpg"> <!-- FINAL BG IMAGE -->
-    <div id="finalText">Happy Birthday ❤️</div>
-    <div id="para"></div>
-</div>
+<section id="final">
+    <img src=".jpg">
+
+    <div id="finalContent">
+        <div id="finalText">Happy Birthday ❤️</div>
+        <div id="para"></div>
+    </div>
+</section>
 
 <audio id="music" src="Raabta Agent Vinod 320 Kbps.mp3"></audio>
 
@@ -166,6 +154,7 @@ let lines=[
 let finalPara="You are not just my sister, you are my comfort, my happiness, and my best memory in every phase of life. I’m lucky to have you ❤️";
 
 let i=0;
+
 let img=document.getElementById("img");
 let text=document.getElementById("text");
 let music=document.getElementById("music");
@@ -177,15 +166,35 @@ document.getElementById("enterBtn").onclick=()=>{
     document.getElementById("main").style.display="block";
 
     setTimeout(()=>{
-        music.currentTime = 39;
+        music.currentTime=40;
         music.play().catch(()=>{});
-    },2000);
+    },1500);
 
     showSlide();
 };
 
-/* TYPING */
-function typeText(line,callback){
+/* SLIDE */
+function showSlide(){
+
+    if(i>=images.length){
+        showFinal();
+        return;
+    }
+
+    img.src=images[i];
+    img.style.opacity=1;
+
+    typeText(lines[i],()=>{
+        i++;
+        setTimeout(()=>{
+            img.style.opacity=0;
+            showSlide();
+        },1500);
+    });
+}
+
+/* TYPE */
+function typeText(line,cb){
     text.innerHTML="";
     let j=0;
 
@@ -195,63 +204,33 @@ function typeText(line,callback){
 
         if(j>=line.length){
             clearInterval(t);
-            setTimeout(callback,1800);
+            setTimeout(cb,1500);
         }
-    },35);
-}
-
-/* SLIDES */
-function showSlide(){
-
-    if(i>=images.length){
-        showFinal();
-        return;
-    }
-
-    img.classList.remove("show");
-
-    setTimeout(()=>{
-        img.src=images[i];
-        img.classList.add("show");
-
-        typeText(lines[i],()=>{
-            i++;
-            showSlide();
-        });
-
-    },800);
+    },30);
 }
 
 /* FINAL */
 function showFinal(){
-
     document.getElementById("main").style.display="none";
     document.getElementById("final").style.display="block";
 
-    setTimeout(()=>{
-        document.getElementById("finalText").classList.add("reveal");
-
-        setTimeout(()=>{
-            typePara(finalPara);
-        },1200);
-
-    },700);
+    typePara(finalPara);
 }
 
-/* FINAL PARA */
-function typePara(textLine){
+/* PARA */
+function typePara(txt){
     let el=document.getElementById("para");
     el.innerHTML="";
     let k=0;
 
     let t=setInterval(()=>{
-        el.innerHTML+=textLine[k];
+        el.innerHTML+=txt[k];
         k++;
 
-        if(k>=textLine.length){
+        if(k>=txt.length){
             clearInterval(t);
         }
-    },35);
+    },30);
 }
 
 </script>
