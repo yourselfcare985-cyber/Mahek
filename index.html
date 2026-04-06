@@ -15,7 +15,7 @@ body{
     font-family:'Poppins',sans-serif;
 }
 
-/* COMMON LAYER FIX */
+/* COMMON */
 section{
     position:absolute;
     width:100%;
@@ -59,10 +59,9 @@ section{
 
 .show{
     opacity:1;
-    transform:scale(1.15); /* slow zoom */
+    transform:scale(1.12);
 }
 
-/* TEXT CENTER */
 #text{
     position:absolute;
     top:50%;
@@ -84,7 +83,6 @@ section{
     height:100%;
 }
 
-/* BACKGROUND IMAGE */
 #final img{
     position:absolute;
     width:100%;
@@ -94,30 +92,27 @@ section{
     z-index:1;
 }
 
-/* CONTENT */
 #finalContent{
     position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    
-    width:85%;
-    max-width:500px;
-    
-    text-align:center;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
     color:white;
-
-    z-index:2; /* ONLY ONE layer */
+    z-index:2;
 }
 
-/* HEADING */
+/* TOP TEXT */
 #finalText{
+    position:absolute;
+    top:10%;
+    width:100%;
+    text-align:center;
     font-size:38px;
-    margin-bottom:15px;
     font-family:'Playfair Display',serif;
 
     opacity:0;
-    transform:translateY(40px);
+    transform:translateY(-30px);
     transition:1s ease;
 }
 
@@ -126,11 +121,19 @@ section{
     transform:translateY(0);
 }
 
-/* PARAGRAPH */
+/* CENTER PARA */
 #para{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    
+    width:85%;
+    max-width:500px;
+
+    text-align:center;
     font-size:18px;
     line-height:1.6;
-    word-wrap:break-word;
 }
 </style>
 </head>
@@ -156,7 +159,7 @@ section{
     <img src="From KlickPin CF Pin by ROMA on Zeichnungen in 2026 _ Pretty landscapes Beautiful wallpapers backgrounds Beautiful nature wallpaper.jpg">
 
     <div id="finalContent">
-        <div id="finalText">Happy Birthday</div>
+        <div id="finalText">Happy Birthday ❤️</div>
         <div id="para"></div>
     </div>
 </section>
@@ -191,14 +194,13 @@ document.getElementById("enterBtn").onclick=()=>{
     document.getElementById("intro").style.display="none";
     document.getElementById("main").style.display="block";
 
-    // FORCE PLAY (no delay)
     music.currentTime = 41;
-    music.play().then(()=>{}).catch(()=>{});
+    music.play().catch(()=>{});
 
     showSlide();
 };
 
-/* SLIDE */
+/* SLIDES */
 function showSlide(){
 
     if(i>=images.length){
@@ -212,29 +214,26 @@ function showSlide(){
 
         img.src=images[i];
 
-        // wait for image to load properly
         img.onload = ()=>{
 
-    img.classList.remove("show"); // reset
-    void img.offsetWidth; // force reflow (important)
+            img.classList.remove("show");
+            void img.offsetWidth;
 
-    img.style.opacity=1;
-    img.classList.add("show"); // zoom start
+            img.style.opacity=1;
+            img.classList.add("show");
 
-    setTimeout(()=>{
-        typeText(lines[i],()=>{
-            i++;
             setTimeout(()=>{
-                showSlide();
-            },1200);
-        });
-    },600);
-};
+                typeText(lines[i],()=>{
+                    i++;
+                    setTimeout(showSlide,800);
+                });
+            },400);
+        };
 
-    },500);
+    },200);
 }
 
-/* TYPE */
+/* TYPE TEXT */
 function typeText(line,cb){
     text.innerHTML="";
     let j=0;
@@ -245,36 +244,31 @@ function typeText(line,cb){
 
         if(j>=line.length){
             clearInterval(t);
-            setTimeout(cb,1500);
+            setTimeout(cb,1200);
         }
     },30);
 }
 
-/* FINAL */
+/* FINAL SCREEN */
 function showFinal(){
     document.getElementById("main").style.display="none";
     document.getElementById("final").style.display="block";
 
-    let title = document.getElementById("finalText");
+    let title=document.getElementById("finalText");
 
-    // HARD RESET
     title.classList.remove("showFinalText");
-    title.style.opacity = "0";
 
-    // FORCE REPAINT
     setTimeout(()=>{
-
-        title.style.opacity = "1";   // force visible
         title.classList.add("showFinalText");
 
         setTimeout(()=>{
             typePara(finalPara);
         },800);
 
-    },500);
+    },300);
 }
 
-/* PARA */
+/* PARA TYPE */
 function typePara(txt){
     let el=document.getElementById("para");
     el.innerHTML="";
@@ -293,4 +287,4 @@ function typePara(txt){
 </script>
 
 </body>
-</html>
+</
