@@ -1,295 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Sister - Happy Birthday</title>
-    <style>
-        /* --- Global Variables & Resets --- */
-        :root {
-            --dark-bg: #121212;
-            --rose-gold: #b76e79;
-            --light-rose: #e0bfb8;
-            --warm-bg: #f4eade;
-            --text-light: #f8f8f8;
-            --text-dark: #333333;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<title>For My Sister ❤️</title>
 
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            overflow-x: hidden;
-        }
+<style>
+:root{
+    --dark:#121212;
+    --accent:#b76e79;
+    --light:#f5e6e0;
+}
 
-        /* --- Animations --- */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+html{scroll-behavior:smooth;}
 
-        /* --- Hero Section (Typing Effect) --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 1)), url('https://placehold.co/1920x1080/2a2a2a/b76e79?text=Dark+Floral+Background') center/cover;
-        }
+body{
+    background:var(--dark);
+    color:white;
+}
 
-        .hero h1 {
-            font-size: 4rem;
-            color: var(--rose-gold);
-            font-family: 'Georgia', serif;
-            margin-bottom: 1rem;
-            border-right: 3px solid var(--rose-gold);
-            white-space: nowrap;
-            overflow: hidden;
-        }
+/* DEPTH */
+body::before{
+    content:'';
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:radial-gradient(circle,transparent,black 80%);
+    z-index:-1;
+}
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--light-rose);
-            letter-spacing: 2px;
-        }
+/* HERO */
+.hero{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+}
 
-        /* --- Digital Gallery Section (Sleek & Modern) --- */
-        .digital-gallery {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.hero h1{
+    font-size:3rem;
+    color:var(--accent);
+    border-right:2px solid var(--accent);
+    white-space:nowrap;
+    overflow:hidden;
+}
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--rose-gold);
-            margin-bottom: 3rem;
-            font-family: 'Georgia', serif;
-        }
+#subText{
+    margin-top:20px;
+    opacity:0;
+    transition:1.5s;
+    color:#ccc;
+}
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+/* SECTION */
+.section{
+    padding:80px 20px;
+    max-width:1100px;
+    margin:auto;
+}
 
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            cursor: pointer;
-        }
+.title{
+    text-align:center;
+    color:var(--accent);
+    font-size:2rem;
+    margin-bottom:40px;
+}
 
-        .gallery-item img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            transition: transform 0.6s ease, filter 0.6s ease;
-            filter: grayscale(40%);
-        }
+/* GALLERY */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
 
-        .gallery-item:hover img {
-            transform: scale(1.08);
-            filter: grayscale(0%);
-        }
+.card{
+    position:relative;
+    overflow:hidden;
+    border-radius:10px;
+}
 
-        .gallery-overlay {
-            position: absolute;
-            bottom: -50px;
-            left: 0;
-            width: 100%;
-            padding: 1.5rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            transition: bottom 0.4s ease;
-        }
+.card img{
+    width:100%;
+    height:350px;
+    object-fit:cover;
+    filter:grayscale(50%);
+    transition:0.6s;
+}
 
-        .gallery-item:hover .gallery-overlay {
-            bottom: 0;
-        }
+.card:hover img{
+    transform:scale(1.1);
+    filter:grayscale(0%);
+}
 
-        .gallery-overlay h3 {
-            color: var(--rose-gold);
-            font-size: 1.2rem;
-        }
+.overlay{
+    position:absolute;
+    bottom:-60px;
+    width:100%;
+    padding:15px;
+    background:linear-gradient(transparent,black);
+    transition:0.4s;
+}
 
-        /* --- Memory Wall Section (Warm & Nostalgic) --- */
-        .memory-wall {
-            background-color: var(--warm-bg);
-            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
-            padding: 6rem 2rem;
-            color: var(--text-dark);
-        }
+.card:hover .overlay{
+    bottom:0;
+}
 
-        .memory-wall .section-title {
-            color: #8b4513;
-        }
+/* POLAROID */
+.polaroid-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:40px;
+}
 
-        .polaroid-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 3rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+.polaroid{
+    background:white;
+    color:black;
+    padding:10px 10px 30px;
+    width:260px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    transform:rotate(-3deg);
+    transition:0.4s;
+}
 
-        .polaroid {
-            background: #fff;
-            padding: 1rem 1rem 3rem 1rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            width: 280px;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
-        }
+.polaroid:nth-child(even){transform:rotate(3deg);}
 
-        /* Random Rotations for Polaroids */
-        .polaroid:nth-child(even) { transform: rotate(4deg); }
-        .polaroid:nth-child(odd) { transform: rotate(-3deg); }
-        .polaroid:nth-child(3n) { transform: rotate(2deg); }
+.polaroid:hover{
+    transform:scale(1.1) rotate(0deg);
+}
 
-        .polaroid img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
+.polaroid img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
 
-        .polaroid-caption {
-            position: absolute;
-            bottom: 15px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-family: 'Brush Script MT', cursive, sans-serif;
-            font-size: 1.4rem;
-            color: #333;
-        }
+.caption{
+    text-align:center;
+    margin-top:10px;
+}
 
-        .polaroid:hover {
-            transform: scale(1.1) rotate(0deg) translateY(-10px);
-            z-index: 10;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        }
+/* FINAL */
+.final{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+}
 
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #0a0a0a;
-            color: var(--rose-gold);
-            font-size: 1rem;
-        }
+#finalText{
+    font-size:3rem;
+    opacity:0;
+    transition:2s;
+    color:var(--accent);
+}
 
-    </style>
+</style>
 </head>
+
 <body>
 
-    <header class="hero">
-        <h1 id="typewriter"></h1>
-        <p class="fade-in">A journey of a thousand smiles, just for you.</p>
-    </header>
+<!-- HERO -->
+<section class="hero">
+    <h1 id="type"></h1>
+    <p id="subText">Not just a sister… my forever person ❤️</p>
+</section>
 
-    <section class="digital-gallery">
-        <h2 class="section-title fade-in">Elegance & Grace</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item fade-in">
-                <img src="https://placehold.co/600x800/1e1e1e/b76e79?text=Sister+Pic+1" alt="Gallery 1">
-                <div class="gallery-overlay">
-                    <h3>Always Shining</h3>
-                </div>
-            </div>
-            <div class="gallery-item fade-in" style="transition-delay: 0.2s;">
-                <img src="https://placehold.co/600x800/1e1e1e/b76e79?text=Sister+Pic+2" alt="Gallery 2">
-                <div class="gallery-overlay">
-                    <h3>Fierce & Fabulous</h3>
-                </div>
-            </div>
-            <div class="gallery-item fade-in" style="transition-delay: 0.4s;">
-                <img src="https://placehold.co/600x800/1e1e1e/b76e79?text=Sister+Pic+3" alt="Gallery 3">
-                <div class="gallery-overlay">
-                    <h3>Unstoppable</h3>
-                </div>
-            </div>
+<!-- GALLERY -->
+<section class="section">
+    <h2 class="title">Our Moments</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="IMG-20260406-WA0015.jpg">
+            <div class="overlay">That day we couldn’t stop laughing</div>
         </div>
-    </section>
-
-    <section class="memory-wall">
-        <h2 class="section-title fade-in">Our Memory Wall</h2>
-        <div class="polaroid-container">
-            <div class="polaroid fade-in">
-                <img src="https://placehold.co/400x400/e0bfb8/333333?text=Childhood" alt="Childhood Memory">
-                <div class="polaroid-caption">Bachpan ki yaadein</div>
-            </div>
-            <div class="polaroid fade-in" style="transition-delay: 0.2s;">
-                <img src="https://placehold.co/400x400/e0bfb8/333333?text=Rakhi" alt="Rakhi Festival">
-                <div class="polaroid-caption">Best Rakhi ever ❤️</div>
-            </div>
-            <div class="polaroid fade-in" style="transition-delay: 0.4s;">
-                <img src="https://placehold.co/400x400/e0bfb8/333333?text=Trip" alt="Family Trip">
-                <div class="polaroid-caption">Crazy family trips!</div>
-            </div>
+        <div class="card">
+            <img src="IMG-20260406-WA0016.jpg">
+            <div class="overlay">Random moments turned memories</div>
         </div>
-    </section>
+        <div class="card">
+            <img src="IMG-20260406-WA0018.jpg">
+            <div class="overlay">No reason… just happiness</div>
+        </div>
+    </div>
+</section>
 
-    <footer>
-        <p>Made with endless love by your brother. Happy Birthday!</p>
-    </footer>
+<!-- MEMORY WALL -->
+<section class="section">
+    <h2 class="title">Memories That Stayed</h2>
+    <div class="polaroid-wrap">
+        <div class="polaroid">
+            <img src="img4.jpg">
+            <div class="caption">Childhood chaos 😂</div>
+        </div>
+        <div class="polaroid">
+            <img src="img5.jpg">
+            <div class="caption">Best moment❤️</div>
+        </div>
+        <div class="polaroid">
+            <img src="IMG-20260406-WA0017.jpg">
+            <div class="caption">Unforgettable trips</div>
+        </div>
+    </div>
+</section>
 
-    <script>
-        // 1. Typewriter Effect for Hero Heading
-        const text = "Happy Birthday, Priya! 🎉";
-        let i = 0;
-        const speed = 100; // Typing speed in milliseconds
+<!-- FINAL -->
+<section class="final">
+    <h1 id="finalText">Happy Birthday ❤️</h1>
+    <p style="margin-top:20px;">Some bonds are forever… and ours is one of them.</p>
+</section>
 
-        function typeWriter() {
-            if (i < text.length) {
-                document.getElementById("typewriter").innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, speed);
-            } else {
-                // Remove the cursor border after typing finishes
-                document.getElementById("typewriter").style.borderRight = "none";
-            }
-        }
-        
-        // Start typing effect on load
-        window.onload = typeWriter;
+<script>
 
-        // 2. Scroll Reveal Animations using Intersection Observer
-        const observerOptions = {
-            threshold: 0.1, // Trigger when 10% of element is visible
-            rootMargin: "0px 0px -50px 0px"
-        };
+/* TYPEWRITER */
+let text="Some people just exist… but you made every moment special.";
+let i=0;
 
-        const observer = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Stop observing once visible
-                }
-            });
-        }, observerOptions);
+function type(){
+    if(i<text.length){
+        document.getElementById("type").innerHTML+=text[i];
+        i++;
+        setTimeout(type,50);
+    }else{
+        document.getElementById("type").style.borderRight="none";
+        setTimeout(()=>{
+            document.getElementById("subText").style.opacity=1;
+        },500);
+    }
+}
 
-        // Select all elements with class 'fade-in' and observe them
-        const faders = document.querySelectorAll('.fade-in');
-        faders.forEach(fader => {
-            observer.observe(fader);
-        });
-    </script>
+type();
+
+/* FINAL REVEAL */
+window.addEventListener("scroll",()=>{
+    let final=document.getElementById("finalText");
+    let pos=final.getBoundingClientRect().top;
+    let screen=window.innerHeight;
+
+    if(pos<screen-100){
+        final.style.opacity=1;
+    }
+});
+
+</script>
+
 </body>
 </html>
