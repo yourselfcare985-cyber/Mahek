@@ -185,10 +185,9 @@ document.getElementById("enterBtn").onclick=()=>{
     document.getElementById("intro").style.display="none";
     document.getElementById("main").style.display="block";
 
-    setTimeout(()=>{
-        music.currentTime=41;
-        music.play().catch(()=>{});
-    },100);
+    // FORCE PLAY (no delay)
+    music.currentTime = 41;
+    music.play().then(()=>{}).catch(()=>{});
 
     showSlide();
 };
@@ -252,14 +251,18 @@ function showFinal(){
 
     let title = document.getElementById("finalText");
 
+    // RESET (important)
+    title.classList.remove("showFinalText");
+    void title.offsetWidth;
+
     setTimeout(()=>{
-        title.classList.add("showFinalText"); // animation trigger
+        title.classList.add("showFinalText");
 
         setTimeout(()=>{
             typePara(finalPara);
         },800);
 
-    },500);
+    },300);
 }
 
 /* PARA */
