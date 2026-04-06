@@ -203,4 +203,16 @@ function end(){
     document.getElementById("final").style.display="block";
 
     setTimeout(()=>{
-        document.getElementById("finalText").classList
+        document.getElementById("finalText").classList.add("reveal");
+
+        setTimeout(()=>{
+            type(document.getElementById("para"),finalPara,()=>{});
+        },1200);
+
+    },500);
+}
+
+</script>
+
+</body>
+</html>
