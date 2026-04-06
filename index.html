@@ -100,11 +100,6 @@ section{
 }
 
 /* FIXED HEADING */
-#finalText{
-    font-size:40px;
-    margin-bottom:20px;
-    font-family:'Playfair Display',serif;
-}
 
 /* FIXED PARA */
 #para{
@@ -119,13 +114,23 @@ section{
     opacity:0;
     transform:translateY(50px) scale(0.9);
     transition:1.5s ease;
+     z-index:5;   
 }
 
 .showFinalText{
     opacity:1;
     transform:translateY(0) scale(1);
 }
-
+#finalContent{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    text-align:center;
+    color:white;
+    z-index:10; /* IMPORTANT */
+}
 </style>
 </head>
 
@@ -251,18 +256,17 @@ function showFinal(){
 
     let title = document.getElementById("finalText");
 
-    // RESET (important)
+    title.style.opacity = "0";
     title.classList.remove("showFinalText");
-    void title.offsetWidth;
 
     setTimeout(()=>{
         title.classList.add("showFinalText");
 
         setTimeout(()=>{
             typePara(finalPara);
-        },800);
+        },1000);
 
-    },300);
+    },200);
 }
 
 /* PARA */
