@@ -181,16 +181,36 @@ function showSlide(){
         return;
     }
 
-    img.src=images[i];
-    img.style.opacity=1;
+    img.style.opacity=0;
 
-    typeText(lines[i],()=>{
-        i++;
-        setTimeout(()=>{
-            img.style.opacity=0;
-            showSlide();
-        },1500);
-    });
+    setTimeout(()=>{
+
+        img.src=images[i];
+
+        // wait for image to load properly
+        img.onload = ()=>{
+
+            img.style.opacity=1;
+
+            // delay so image fully visible lage
+            setTimeout(()=>{
+
+                typeText(lines[i],()=>{
+
+                    i++;
+
+                    // hold after text complete
+                    setTimeout(()=>{
+                        showSlide();
+                    },1200);
+
+                });
+
+            },600); // <-- image settle delay
+
+        };
+
+    },500);
 }
 
 /* TYPE */
