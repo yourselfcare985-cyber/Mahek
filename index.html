@@ -3,130 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday ❤️</title>
+<title>For My Sister ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300&display=swap" rel="stylesheet">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
-    font-family:'Poppins',sans-serif;
-    background: linear-gradient(135deg,#0a0a0a,#2b0f15,#3a0d1a);
+    margin:0;
+    background:#0b0b0b;
     color:white;
+    font-family:'Poppins',sans-serif;
     overflow:hidden;
+    text-align:center;
 }
 
-/* ENTRY SCREEN */
-#entry{
-    position:fixed;
+/* IMAGE */
+#imageBox{
     width:100%;
-    height:100vh;
+    height:75vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:black;
-    z-index:10;
-}
-
-#entry button{
-    padding:15px 40px;
-    font-size:18px;
-    background:transparent;
-    border:1px solid #a44553;
-    color:#fff;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-#entry button:hover{
-    background:#a44553;
-}
-
-/* MAIN */
-#main{
-    display:none;
-    text-align:center;
-    padding:40px;
-    animation:fadeIn 2s ease;
-}
-
-@keyframes fadeIn{
-    from{opacity:0;}
-    to{opacity:1;}
-}
-
-h1{
-    font-family:'Playfair Display',serif;
-    font-size:40px;
-    margin-bottom:10px;
-}
-
-p{
-    opacity:0.8;
-    margin-bottom:30px;
-}
-
-/* PHOTO GRID */
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-    gap:20px;
-    padding:20px;
-}
-
-.card{
     overflow:hidden;
-    border-radius:15px;
-    position:relative;
 }
 
-.card img{
+#imageBox img{
     width:100%;
     height:100%;
     object-fit:cover;
-    transition:0.5s;
-}
-
-.card:hover img{
-    transform:scale(1.1);
-    filter:brightness(0.8);
-}
-
-.card::after{
-    content:'❤️';
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%) scale(0);
-    font-size:30px;
     opacity:0;
-    transition:0.4s;
+    transform:scale(1.1);
+    transition:2s ease;
 }
 
-.card:hover::after{
-    transform:translate(-50%,-50%) scale(1);
-    opacity:1;
+.show{
+    opacity:1 !important;
+    transform:scale(1);
 }
 
-/* FLOATING PARTICLES */
-.particle{
+/* TEXT */
+#text{
+    padding:20px;
+    font-size:18px;
+    min-height:60px;
+    opacity:0.9;
+}
+
+/* FINAL TEXT */
+#final{
     position:absolute;
-    width:5px;
-    height:5px;
-    background:white;
-    opacity:0.3;
-    border-radius:50%;
-    animation:float 10s infinite;
+    top:40%;
+    width:100%;
+    font-size:40px;
+    font-family:'Playfair Display',serif;
+    opacity:0;
+    letter-spacing:3px;
+    transition:2s;
 }
 
-@keyframes float{
-    from{transform:translateY(100vh);}
-    to{transform:translateY(-10vh);}
+.reveal{
+    opacity:1 !important;
+    letter-spacing:8px;
 }
 
 </style>
@@ -134,41 +71,77 @@ p{
 
 <body>
 
-<div id="entry">
-    <button onclick="enter()">Enter ❤️</button>
+<div id="imageBox">
+    <img id="img" src="img1.jpg">
 </div>
 
-<div id="main">
-    <h1>Happy Birthday 🎂</h1>
-    <p>You are not just special… you are unforgettable ❤️</p>
-
-    <div class="gallery">
-        <div class="card"><img src="IMG-20260406-WA0017.jpg"></div>
-        <div class="card"><img src="IMG-20260406-WA0018.jpg"></div>
-        <div class="card"><img src="IMG-20260406-WA0016.jpg"></div>
-        <div class="card"><img src="IMG-20260406-WA0015.jpg"></div>
-    </div>
-</div>
-
-<audio id="music" src="music.mp3"></audio>
+<div id="text"></div>
+<div id="final">Happy Birthday ❤️</div>
 
 <script>
-function enter(){
-    document.getElementById("entry").style.display="none";
-    document.getElementById("main").style.display="block";
 
-    let music=document.getElementById("music");
-    music.play();
+let images = ["IMG-20260406-WA0015.jpg","IMG-20260406-WA0016.jpg","IMG-20260406-WA0018.jpg","IMG-20260406-WA0017.jpg"];
+
+let textLines = [
+"You’ve always been more than just a sister… you’ve been my safe place.",
+"No matter how much time passes, the memories we share never fade.",
+"You’re the one who makes ordinary days feel special.",
+"And honestly… life wouldn’t be the same without you."
+];
+
+let i = 0;
+let img = document.getElementById("img");
+let text = document.getElementById("text");
+
+/* typing effect */
+function typeLine(line, callback){
+    text.innerHTML="";
+    let j=0;
+    let typing=setInterval(()=>{
+        text.innerHTML += line[j];
+        j++;
+        if(j>=line.length){
+            clearInterval(typing);
+            setTimeout(callback,1500);
+        }
+    },40);
 }
 
-/* particles */
-for(let i=0;i<40;i++){
-    let p=document.createElement("div");
-    p.className="particle";
-    p.style.left=Math.random()*100+"%";
-    p.style.animationDuration=(5+Math.random()*10)+"s";
-    document.body.appendChild(p);
+/* show images */
+function showNext(){
+    if(i < images.length){
+        img.classList.remove("show");
+
+        setTimeout(()=>{
+            img.src = images[i];
+            img.classList.add("show");
+            typeLine(textLines[i], ()=>{
+                i++;
+                showNext();
+            });
+        },500);
+    } else {
+        showFinal();
+    }
 }
+
+/* final animation */
+function showFinal(){
+    text.innerHTML="";
+    setTimeout(()=>{
+        document.getElementById("final").classList.add("reveal");
+    },1000);
+}
+
+/* start */
+setTimeout(()=>{
+    img.classList.add("show");
+    typeLine(textLines[0], ()=>{
+        i=1;
+        showNext();
+    });
+},1000);
+
 </script>
 
 </body>
