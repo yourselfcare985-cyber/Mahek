@@ -47,6 +47,7 @@ body{
 /* MAIN */
 #main{ display:none; }
 
+/* IMAGE */
 #img{
     position:absolute;
     width:100%;
@@ -62,14 +63,17 @@ body{
     transform:scale(1);
 }
 
+/* TEXT CENTER FIX */
 #text{
     position:absolute;
-    bottom:70px;
-    width:100%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:80%;
     text-align:center;
     font-size:22px;
-    padding:0 20px;
-    text-shadow:0 0 10px rgba(0,0,0,0.7);
+    line-height:1.6;
+    text-shadow:0 0 15px rgba(0,0,0,0.8);
 }
 
 /* FINAL */
@@ -80,6 +84,7 @@ body{
     height:100%;
 }
 
+/* FINAL BG IMAGE */
 #final img{
     position:absolute;
     width:100%;
@@ -88,6 +93,7 @@ body{
     filter:brightness(0.5);
 }
 
+/* FINAL TEXT */
 #finalText{
     position:absolute;
     top:30%;
@@ -100,6 +106,7 @@ body{
     transition:2s;
 }
 
+/* FINAL PARA */
 #para{
     position:absolute;
     top:55%;
@@ -107,6 +114,7 @@ body{
     text-align:center;
     padding:0 30px;
     font-size:18px;
+    line-height:1.6;
 }
 
 .reveal{
@@ -134,7 +142,7 @@ body{
 
 <!-- FINAL -->
 <div id="final">
-    <img src="final.jpg">
+    <img src="IMG-20260406-WA0017.jpg"> <!-- FINAL BG IMAGE -->
     <div id="finalText">Happy Birthday ❤️</div>
     <div id="para"></div>
 </div>
@@ -143,7 +151,11 @@ body{
 
 <script>
 
-let images=["IMG-20260406-WA0018.jpg","IMG-20260406-WA0016.jpg","IMG-20260406-WA0015.jpg"];
+let images=[
+"IMG-20260406-WA0018.jpg",
+"IMG-20260406-WA0016.jpg",
+"IMG-20260406-WA0015.jpg"
+];
 
 let lines=[
 "You’ve always been my safe place…",
@@ -160,30 +172,35 @@ let music=document.getElementById("music");
 
 /* ENTER */
 document.getElementById("enterBtn").onclick=()=>{
+
     document.getElementById("intro").style.display="none";
     document.getElementById("main").style.display="block";
-    music.play().catch(()=>{});
+
+    setTimeout(()=>{
+        music.currentTime = 20;
+        music.play().catch(()=>{});
+    },2000);
+
     showSlide();
 };
 
-/* TYPING with sync */
+/* TYPING */
 function typeText(line,callback){
     text.innerHTML="";
     let j=0;
 
-    let interval=setInterval(()=>{
+    let t=setInterval(()=>{
         text.innerHTML+=line[j];
         j++;
 
         if(j>=line.length){
-            clearInterval(interval);
-            setTimeout(callback,1500);
+            clearInterval(t);
+            setTimeout(callback,1800);
         }
-
     },35);
 }
 
-/* SLIDE CONTROL (PERFECT TIMING) */
+/* SLIDES */
 function showSlide(){
 
     if(i>=images.length){
@@ -202,13 +219,12 @@ function showSlide(){
             showSlide();
         });
 
-    },700);
+    },800);
 }
-setTimeout(()=>{
-    music.play().catch(()=>{});
-},40000);
+
 /* FINAL */
 function showFinal(){
+
     document.getElementById("main").style.display="none";
     document.getElementById("final").style.display="block";
 
@@ -219,10 +235,10 @@ function showFinal(){
             typePara(finalPara);
         },1200);
 
-    },500);
+    },700);
 }
 
-/* FINAL PARA TYPING */
+/* FINAL PARA */
 function typePara(textLine){
     let el=document.getElementById("para");
     el.innerHTML="";
@@ -235,7 +251,6 @@ function typePara(textLine){
         if(k>=textLine.length){
             clearInterval(t);
         }
-
     },35);
 }
 
