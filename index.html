@@ -193,24 +193,32 @@ function showSlide(){
     }
 
     img.style.opacity=0;
+    text.innerHTML="";
 
     setTimeout(()=>{
 
-        img.src=images[i];
+        img.classList.remove("show");
+        img.src = images[i];
+
+        img.onerror = () => {
+            console.log("❌ Image not found:", images[i]);
+            i++;
+            showSlide();
+        };
 
         img.onload = ()=>{
 
-            img.classList.add("show");
+            img.style.opacity = 1;
 
             setTimeout(()=>{
                 typeText(lines[i],()=>{
                     i++;
-                    setTimeout(showSlide,700);
+                    setTimeout(showSlide,1200);
                 });
-            },300);
+            },400);
         };
 
-    },200);
+    },300);
 }
 
 /* TYPE TEXT */
